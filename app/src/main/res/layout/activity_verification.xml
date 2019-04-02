@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:padding="@dimen/activity_padding"
+    android:id="@+id/const_verify_layout"
+    tools:context=".activities.VerificationActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_verify_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/margin_tiny"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@id/tv_verify_dwntime"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:text="@string/phone_valid_intro"
+            android:textAlignment="center" />
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_verify_dwntime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_tiny"
+        android:text="@string/resend_code_in"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/linear_verify_codes"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linear_verify_codes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--input code 1-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/verify_code_dim"
+            android:layout_height="@dimen/verify_code_dim"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:background="@drawable/verify_codes_background"
+            android:padding="@dimen/margin_tiny"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_code_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="1"
+                android:maxLength="1"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--input code 2-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/verify_code_dim"
+            android:layout_height="@dimen/verify_code_dim"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:background="@drawable/verify_codes_background"
+            android:padding="@dimen/margin_tiny"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:maxLength="1"
+                android:id="@+id/et_code_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="1"
+                android:gravity="center"
+                android:inputType="number" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--input code 3-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/verify_code_dim"
+            android:layout_height="@dimen/verify_code_dim"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:background="@drawable/verify_codes_background"
+            android:padding="@dimen/margin_tiny"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:maxLength="1"
+                android:id="@+id/et_code_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="1"
+                android:gravity="center"
+                android:inputType="number" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--input code 4-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/verify_code_dim"
+            android:layout_height="@dimen/verify_code_dim"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:background="@drawable/verify_codes_background"
+            android:padding="@dimen/margin_tiny"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:maxLength="1"
+                android:id="@+id/et_code_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="1"
+                android:gravity="center"
+                android:inputType="number" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--input code 5-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/verify_code_dim"
+            android:layout_height="@dimen/verify_code_dim"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:background="@drawable/verify_codes_background"
+            android:padding="@dimen/margin_tiny"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:maxLength="1"
+                android:id="@+id/et_code_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="1"
+                android:gravity="center"
+                android:inputType="number" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--input code 6-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/verify_code_dim"
+            android:layout_height="@dimen/verify_code_dim"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:background="@drawable/verify_codes_background"
+            android:padding="@dimen/margin_tiny"
+            app:hintEnabled="false">
+
+            <android.support.design.widget.TextInputEditText
+                android:maxLength="1"
+                android:id="@+id/et_code_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="1"
+                android:gravity="center"
+                android:inputType="number" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_verify_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="@string/verifying"
+        android:textSize="@dimen/med_text"
+        android:textStyle="italic|bold"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/probar_verify_code" />
+
+    <ProgressBar
+        android:id="@+id/probar_verify_code"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/linear_verify_codes" />
+
+    <Button
+        android:padding="@dimen/margin_tiny"
+        android:textColor="@color/white"
+        android:background="@drawable/app_button_background"
+        android:id="@+id/bt_verifycode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:drawableStart="@drawable/ic_arrow_forward_white_24dp"
+        android:onClick="VerifyCodeRecieved"
+        android:text="@string/verify"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/probar_verify_code" />
+
+    <TextView
+        android:id="@+id/tv_verify_resend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:clickable="true"
+        android:enabled="false"
+        android:focusable="true"
+        android:onClick="ResendCode"
+        android:text="@string/resend_code"
+        android:textAlignment="center"
+        android:textSize="@dimen/med_text"
+        app:layout_constraintTop_toBottomOf="@id/bt_verifycode" />
+
+</android.support.constraint.ConstraintLayout>

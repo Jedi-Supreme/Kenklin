@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ServiceRequestActivity">
+
+    <TabHost
+        android:id="@+id/serv_tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--Tabhost body-->
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/activity_padding">
+
+                <include
+                    android:id="@+id/serv_request"
+                    layout="@layout/inc_frag_service"/>
+
+                <include
+                    android:id="@+id/serv_summary"
+                    layout="@layout/inc_frag_summary"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recy_service_dummy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+    </TabHost>
+
+</android.support.constraint.ConstraintLayout>
