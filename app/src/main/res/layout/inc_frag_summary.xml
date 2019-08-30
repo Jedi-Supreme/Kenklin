@@ -1,36 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginBottom="@dimen/margin_small"
-        app:layout_constraintBottom_toTopOf="@id/fab_sum_fin"
         android:id="@+id/recy_sum_laundry"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:layout_constraintBottom_toTopOf="@id/div_top"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/div_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/margin_tiny"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/tv_sum_total" />
+
+    <TextView
+        android:text="@string/total_lbl"
+        android:id="@+id/tv_total_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_tiny"
+        app:layout_constraintBottom_toTopOf="@id/div_bottom"
+        app:layout_constraintRight_toLeftOf="@id/tv_sum_total" />
+
+    <TextView
+        android:textColor="@color/colorAccent"
+        android:id="@+id/tv_sum_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_tiny"
+        app:layout_constraintBottom_toTopOf="@id/div_bottom"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <View
+        android:id="@+id/div_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/margin_tiny"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/fab_sum_back" />
 
     <android.support.design.widget.FloatingActionButton
-        app:fabSize="mini"
         android:id="@+id/fab_sum_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_back_white_24dp"
-        app:layout_constraintRight_toLeftOf="@id/fab_sum_fin"
+        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="@id/fab_sum_fin"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintRight_toLeftOf="@id/fab_sum_fin" />
 
     <android.support.design.widget.FloatingActionButton
-        app:fabSize="mini"
-        android:src="@drawable/ic_done_white_24dp"
         android:id="@+id/fab_sum_fin"
-        android:layout_marginBottom="@dimen/margin_small"
-        app:layout_constraintLeft_toRightOf="@id/fab_sum_back"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:src="@drawable/ic_done_white_24dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/fab_sum_back"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

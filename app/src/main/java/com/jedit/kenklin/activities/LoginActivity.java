@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         DatabaseReference recordsref = FirebaseDatabase.getInstance()
                 .getReference(getResources().getString(R.string.records_ref));
 
-        recordsref.child("0"+number).addValueEventListener(new ValueEventListener() {
+        recordsref.child("0"+number).child("uid").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

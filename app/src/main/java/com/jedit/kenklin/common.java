@@ -9,6 +9,11 @@ import com.jedit.kenklin.models.User_Class;
 
 public class common {
 
+    public static String STATE_ACTIVE = "Active";
+    public static String STATE_PENDING = "Pending";
+    public static String STATE_COMPLETED = "Completed";
+    public static String STATE_CANCELLED = "Cancelled";
+
     public static User_Class userBundle(Bundle bundle){
         User_Class user = null;
 

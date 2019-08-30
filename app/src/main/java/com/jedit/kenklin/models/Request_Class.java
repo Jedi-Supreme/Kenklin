@@ -9,28 +9,33 @@ public class Request_Class {
     public static final String REQDATE = "reqDate";
     public static final String COMPDATE = "compDate";
     public static final String COMPSTATUS = "compStatus";
-    public static final String REQ_PUSH_ID = "reqPushID";
+    public static final String REQ_TIME_STAMP = "reqPushID";
 
-    private String reqPush_id;
+    private String reqTime_stamp;
     private String requesterID;
     private String reqDate;
     private String completeDate;
-    private Boolean completed;
-    private ArrayList<Cloths> laundrylist;
+    private String status;
+    private ArrayList<Basket_Items> laundrylist;
+
+    public Request_Class() {
+    }
 
     public Request_Class(String requesterID, String reqDate,
-                         String completeDate, Boolean completed, ArrayList<Cloths> laundrylist) {
+                         String completeDate, String status, ArrayList<Basket_Items> laundrylist) {
         this.requesterID = requesterID;
         this.reqDate = reqDate;
         this.completeDate = completeDate;
-        this.completed = completed;
+        this.status = status;
         this.laundrylist = laundrylist;
     }
 
-    public Request_Class(String requesterID, String reqDate, ArrayList<Cloths> laundrylist) {
-        this.requesterID = requesterID;
+    public Request_Class(String reqTime_stamp, String reqDate,
+                         String completeDate, String status) {
+        this.reqTime_stamp = reqTime_stamp;
         this.reqDate = reqDate;
-        this.laundrylist = laundrylist;
+        this.completeDate = completeDate;
+        this.status = status;
     }
 
     public String getRequesterID() {
@@ -49,11 +54,11 @@ public class Request_Class {
         this.reqDate = reqDate;
     }
 
-    public ArrayList<Cloths> getLaundrylist() {
+    public ArrayList<Basket_Items> getLaundrylist() {
         return laundrylist;
     }
 
-    public void setLaundrylist(ArrayList<Cloths> laundrylist) {
+    public void setLaundrylist(ArrayList<Basket_Items> laundrylist) {
         this.laundrylist = laundrylist;
     }
 
@@ -65,19 +70,19 @@ public class Request_Class {
         this.completeDate = completeDate;
     }
 
-    public Boolean getCompleted() {
-        return completed;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getReqPush_id() {
-        return reqPush_id;
+    public String getReqTime_stamp() {
+        return reqTime_stamp;
     }
 
-    public void setReqPush_id(String reqPush_id) {
-        this.reqPush_id = reqPush_id;
+    public void setReqTime_stamp(String reqTime_stamp) {
+        this.reqTime_stamp = reqTime_stamp;
     }
 }

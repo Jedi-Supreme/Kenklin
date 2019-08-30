@@ -1,16 +1,26 @@
 package com.jedit.kenklin.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jedit.kenklin.R;
+import com.jedit.kenklin.adapters.Req_recy_Adapter;
 import com.jedit.kenklin.databases.KlinDB;
+import com.jedit.kenklin.models.Services_offered;
 import com.jedit.kenklin.models.User_Class;
 
 import java.lang.ref.WeakReference;
@@ -44,7 +54,9 @@ public class Dashboard extends AppCompatActivity {
 
         try {
             loadUserdata();
-        }catch (Exception ignored){}
+        }catch (Exception ignored){
+            //Toast.makeText(getApplicationContext(),"Loading failed with error: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
 
     }
     //=========================================ON CREATE============================================
@@ -69,6 +81,48 @@ public class Dashboard extends AppCompatActivity {
             tv_dash_numb.setText(number);
         }
     }
+
+    void loadServices(){
+
+        DatabaseReference serviceref = FirebaseDatabase.getInstance().getReference("Services");
+
+        serviceref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //fetch all services
+                for (DataSnapshot servicesnap : dataSnapshot.getChildren()){
+
+                    Services_offered singleservice = servicesnap.getValue(Services_offered.class);
+
+                    try {
+                        klin_db.AddonlineServices(singleservice);
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(),"Add services failed with error: " + e.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    void load_localRequests(){
+
+        if (klin_db.all_requests().size() > 0){
+            tv_dash_norecents.setVisibility(View.GONE);
+            Req_recy_Adapter req_recy_adapter = new Req_recy_Adapter(klin_db.all_requests());
+            recy_laundry.setLayoutManager(new LinearLayoutManager(weakdash.get()));
+            recy_laundry.setAdapter(req_recy_adapter);
+
+        }
+
+    }
     //------------------------------------------DEFINED METHODS-------------------------------------
 
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-OVERRIDE METHODS-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -81,6 +135,18 @@ public class Dashboard extends AppCompatActivity {
         startmain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startmain);
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        try {
+            loadServices();
+            load_localRequests();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Loading failed with error: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-OVERRIDE METHODS-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

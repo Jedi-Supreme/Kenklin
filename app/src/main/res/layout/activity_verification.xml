@@ -88,7 +88,9 @@
                 android:background="@null"
                 android:ems="1"
                 android:gravity="center"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@color/white"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -109,7 +111,9 @@
                 android:background="@null"
                 android:ems="1"
                 android:gravity="center"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@color/white"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -130,7 +134,9 @@
                 android:background="@null"
                 android:ems="1"
                 android:gravity="center"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@color/white"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -151,7 +157,9 @@
                 android:background="@null"
                 android:ems="1"
                 android:gravity="center"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@color/white"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -172,7 +180,9 @@
                 android:background="@null"
                 android:ems="1"
                 android:gravity="center"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@color/white"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
