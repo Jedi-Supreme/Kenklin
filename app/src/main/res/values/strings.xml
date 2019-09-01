@@ -28,4 +28,5 @@
     <string name="equals_sign">=</string>
     <string name="total_lbl">Total</string>
     <string name="cancel_order_lbl">Cancel Order</string>
+    <string name="delete_lbl">Delete</string>
 </resources>

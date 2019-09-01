@@ -199,13 +199,16 @@ public class ServiceRequestActivity extends AppCompatActivity {
         if (FirebaseAuth.getInstance().getCurrentUser() != null){
 
            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+           String timeMillis = String.valueOf(calendar.getTimeInMillis());
 
             Request_Class request_items = new Request_Class(uid,
                     date_timeFormat.format(calendar.getTime()),"",
                     common.STATE_PENDING,Items_recy_Adapter.getItems_list());
 
-            req_ref.child(String.valueOf(calendar.getTimeInMillis())).child(uid).setValue(request_items);
-            request_items.setReqTime_stamp(String.valueOf(calendar.getTimeInMillis()));
+            request_items.setReqTime_stamp(timeMillis);
+            req_ref.child(common.time_to_date(timeMillis)).child(timeMillis).setValue(request_items);
+            //toDashboard();
+
             save_toLocal(request_items);
         }else {
             Toast.makeText(getApplicationContext(),"Unable to send request, please try again later",Toast.LENGTH_LONG).show();

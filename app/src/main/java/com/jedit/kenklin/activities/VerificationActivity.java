@@ -56,7 +56,6 @@ public class VerificationActivity extends AppCompatActivity {
 
     KlinDB klinDB;
 
-
     //=========================================ON CREATE============================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +94,10 @@ public class VerificationActivity extends AppCompatActivity {
 
                 if (timeleft < 10){
                     remaining_time = getResources().getString(R.string.resend_code_in) + "0"
-                            + String.valueOf((millisUntilFinished/SECS));
+                            + millisUntilFinished / SECS;
                 }else {
                     remaining_time = getResources().getString(R.string.resend_code_in)
-                            + String.valueOf((millisUntilFinished/SECS));
+                            + millisUntilFinished / SECS;
                 }
 
                 tv_verify_downtime.setText(remaining_time);
@@ -114,7 +113,7 @@ public class VerificationActivity extends AppCompatActivity {
 
         if (registration_bundle != null) {
             String mobile_number = registration_bundle.getString(User_Class.MOBILE_NUMBER);
-            String usernumber = "+" + country_code + String.valueOf(mobile_number);
+            String usernumber = "+" + country_code + mobile_number;
             send_Code_Method(usernumber);
         }else {
             Toast.makeText(getApplicationContext(),"bundle is empty",Toast.LENGTH_LONG).show();

@@ -57,8 +57,6 @@ public class summary_recy_Adapter extends RecyclerView.Adapter {
             tv_multp = itemView.findViewById(R.id.tv_item_multp);
             tv_amt_sum = itemView.findViewById(R.id.tv_item_amt_sum);
 
-            //Todo calculations display
-
             WeakReference<Context> weak_mcontext = new WeakReference<>(itemView.getContext());
             klin_db = new KlinDB(weak_mcontext.get(),null);
 

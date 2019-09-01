@@ -7,12 +7,27 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jedit.kenklin.models.User_Class;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class common {
 
-    public static String STATE_ACTIVE = "Active";
-    public static String STATE_PENDING = "Pending";
-    public static String STATE_COMPLETED = "Completed";
-    public static String STATE_CANCELLED = "Cancelled";
+    public static final String STATE_ACTIVE = "Active";
+    public static final String STATE_PENDING = "Pending";
+    public static final String STATE_COMPLETED = "Completed";
+    public static final String STATE_CANCELLED = "Cancelled";
+
+    public static String time_to_date(String timeMillis){
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTimeInMillis(Long.parseLong(timeMillis));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+        return  simpleDateFormat.format(calendar.getTime());
+    }
 
     public static User_Class userBundle(Bundle bundle){
         User_Class user = null;

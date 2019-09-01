@@ -19,7 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jedit.kenklin.R;
 import com.jedit.kenklin.adapters.Req_recy_Adapter;
+import com.jedit.kenklin.common;
 import com.jedit.kenklin.databases.KlinDB;
+import com.jedit.kenklin.models.Request_Class;
 import com.jedit.kenklin.models.Services_offered;
 import com.jedit.kenklin.models.User_Class;
 
@@ -40,7 +42,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         weakdash = new WeakReference<>(this);
-        klin_db = new KlinDB(getApplicationContext(),null);
+        klin_db = new KlinDB(weakdash.get(),null);
 
         if (!isUserLogged_in()){
             toLogin();
@@ -102,6 +104,7 @@ public class Dashboard extends AppCompatActivity {
                     }
                 }
 
+                serviceref.removeEventListener(this);
             }
 
             @Override
@@ -112,17 +115,50 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    void load_localRequests(){
+    public void load_localRequests(){
 
         if (klin_db.all_requests().size() > 0){
             tv_dash_norecents.setVisibility(View.GONE);
             Req_recy_Adapter req_recy_adapter = new Req_recy_Adapter(klin_db.all_requests());
             recy_laundry.setLayoutManager(new LinearLayoutManager(weakdash.get()));
             recy_laundry.setAdapter(req_recy_adapter);
-
         }
 
     }
+
+    void refresh_req_online(Request_Class servReq){
+
+        //Get request from firebase using time stamp, change status to cancelled and save again sing same time stamp
+        DatabaseReference req_ref = FirebaseDatabase.getInstance().getReference("Orders");
+
+        //Toast.makeText(getApplicationContext(),servReq.getReqTime_stamp(),Toast.LENGTH_LONG).show();
+
+                      req_ref.child(common.time_to_date(servReq.getReqTime_stamp())).child(servReq.getReqTime_stamp())
+                              .addValueEventListener(new ValueEventListener() {
+                                  @Override
+                                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                      Request_Class update_req = dataSnapshot.getValue(Request_Class.class);
+                                      //Toast.makeText(getApplicationContext(),dataSnapshot.toString(), Toast.LENGTH_LONG).show();
+
+                                      if (update_req != null){
+                                          klin_db.addRequest(update_req);
+                                      }else {
+                                          Toast.makeText(getApplicationContext(),"update req empty ", Toast.LENGTH_LONG).show();
+                                      }
+                                      req_ref.removeEventListener(this);
+                                  }
+
+                                  @Override
+                                  public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                  }
+                              });
+
+
+
+    }
+
     //------------------------------------------DEFINED METHODS-------------------------------------
 
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-OVERRIDE METHODS-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -141,9 +177,18 @@ public class Dashboard extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
+            //refresh_req_online(servReq);
+            //Toast.makeText(getApplicationContext(),String.valueOf(klin_db.all_requests().size()),Toast.LENGTH_LONG).show();
+
+
         try {
             loadServices();
-            load_localRequests();
+
+            for (Request_Class servReq : klin_db.all_requests()){
+                refresh_req_online(servReq);
+                //Toast.makeText(getApplicationContext(),servReq.getReqTime_stamp(),Toast.LENGTH_LONG).show();
+            }
+            //load_localRequests();
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Loading failed with error: " + e.toString(), Toast.LENGTH_LONG).show();
         }

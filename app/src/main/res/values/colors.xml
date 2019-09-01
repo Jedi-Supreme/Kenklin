@@ -8,4 +8,7 @@
     <color name="off_grey">#F7F7F7</color>
     <color name="row_tint">#F3F0F3</color>
     <color name="red_cancel">#DD0F0F</color>
+    <color name="red">#D93F25</color>
+    <color name="blue">#2962FF</color>
+    <color name="green">#05B84F</color>
 </resources>

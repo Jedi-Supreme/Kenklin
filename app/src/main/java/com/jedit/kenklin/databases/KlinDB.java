@@ -8,20 +8,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import com.jedit.kenklin.activities.Dashboard;
 import com.jedit.kenklin.models.Basket_Items;
 import com.jedit.kenklin.models.Request_Class;
 import com.jedit.kenklin.models.Services_offered;
 import com.jedit.kenklin.models.User_Class;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class KlinDB extends SQLiteOpenHelper {
 
     private final static int DATABASE_VERSION = 1;
     private final static String DATABASE_NAME = "KENKLIN.db";
+    private WeakReference<Context> weakcontext;
 
     public KlinDB(@Nullable Context context, @Nullable SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+
+        weakcontext = new WeakReference<>(context);
     }
 
     @Override
@@ -43,7 +48,7 @@ public class KlinDB extends SQLiteOpenHelper {
 
         String reqQuery = "CREATE TABLE IF NOT EXISTS " + Request_Class.TABLE + " ( "
                 + Request_Class.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Request_Class.REQ_TIME_STAMP + " TEXT UNIQUE, "
+                + Request_Class.REQ_TIME_STAMP + " TEXT UNIQUE NOT NULL, "
                 + Request_Class.REQDATE + " TEXT, "
                 + Request_Class.COMPDATE + " TEXT, "
                 + Request_Class.COMPSTATUS + " TEXT )";
@@ -70,7 +75,7 @@ public class KlinDB extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT * FROM " + Request_Class.TABLE ;
+        String query = "SELECT DISTINCT * FROM " + Request_Class.TABLE + " ORDER BY " + Request_Class.REQ_TIME_STAMP + " DESC;" ;
 
         return db.rawQuery(query,null);
     }
@@ -245,7 +250,45 @@ public class KlinDB extends SQLiteOpenHelper {
         reqValues.put(Request_Class.COMPSTATUS,String.valueOf(request.getStatus()));
 
         SQLiteDatabase db = getWritableDatabase();
-        db.insertOrThrow(Request_Class.TABLE,null,reqValues);
+
+        try {
+            db.insertOrThrow(Request_Class.TABLE,null,reqValues);
+
+            if (weakcontext.get() instanceof Dashboard){
+                ((Dashboard) weakcontext.get()).load_localRequests();
+                //Toast.makeText(weakcontext.get(),"database add",Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception ignored){
+            updateRequest(request);
+        }
+    }
+
+    public void updateRequest(Request_Class request){
+
+        ContentValues reqValues = new ContentValues();
+        reqValues.put(Request_Class.REQ_TIME_STAMP,request.getReqTime_stamp());
+        reqValues.put(Request_Class.REQDATE,request.getReqDate());
+        reqValues.put(Request_Class.COMPDATE,request.getCompleteDate());
+        reqValues.put(Request_Class.COMPSTATUS,String.valueOf(request.getStatus()));
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.update(Request_Class.TABLE,reqValues,Request_Class.REQ_TIME_STAMP + "=?",
+                new String[]{request.getReqTime_stamp()});
+
+        if (weakcontext.get() instanceof Dashboard){
+            ((Dashboard) weakcontext.get()).load_localRequests();
+            //Toast.makeText(weakcontext.get(),"database update",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void deleteRequest(String timeStamp, Context context){
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        sqLiteDatabase.execSQL("DELETE FROM " + Request_Class.TABLE  + " WHERE "
+                + Request_Class.REQ_TIME_STAMP + " = \"" + timeStamp + "\"");
+
+        ((Dashboard) context).load_localRequests();
     }
 
     public ArrayList<Request_Class> all_requests(){
@@ -263,7 +306,7 @@ public class KlinDB extends SQLiteOpenHelper {
                     c.getString(c.getColumnIndexOrThrow(Request_Class.COMPSTATUS))
             );
 
-            reqs.add(req);
+                reqs.add(req);
         }
 
         return reqs;
